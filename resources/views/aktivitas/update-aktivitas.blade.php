@@ -1,4 +1,4 @@
-@extends('template.navbar')
-@section('content')
+@extends('template.dasboard')
+@section('index')
     
 @endsection

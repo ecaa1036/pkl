@@ -1,11 +1,6 @@
-@extends('template.navbar')
-@section('content')
+@extends('template.dasboard')
+@section('index')
     
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card ">
-                <div class="card-header py-3 ">
                         <div class="text-center">
                             <h2>INPUT DATA User</h2>
                             @if ($errors->any())
@@ -53,8 +48,5 @@
                         </div>
                     </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            
 @endsection

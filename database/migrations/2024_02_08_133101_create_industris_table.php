@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('pemilik_industri');
             $table->string('alamat_industri');
             $table->string('nohp_industri');
+            $table->string('token_masuk');
+            $table->string('token_keluar');
             $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id_user')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

@@ -30,6 +30,8 @@ class IndustriController extends Controller
                 'pemilik_industri' => 'required',
                 'alamat_industri' => 'required',
                 'nohp_industri' => 'required',
+                'token_masuk' => 'required',
+                'token_keluar' => 'required',
                 'id_user' => 'required',
             ]);
             //  $validateData['id_user'] = $user_id;
@@ -94,5 +96,19 @@ class IndustriController extends Controller
 
         return redirect('industri');
 
+    }
+
+    public function tk_masuk(Request $request){
+        
+        $credentials = $request->validate([
+            'token_masuk' => 'required',
+        ]);
+
+        if(Auth::guard('industris')->attempt($credentials)){
+            $request->session()->regenerate();
+            return redirect('kehadiran');
+        }else{
+            return redirect('token');
+        }
     }
 }

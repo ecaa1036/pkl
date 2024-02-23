@@ -1,11 +1,6 @@
-@extends('template.navbar')
-@section('content')
+@extends('template.dasboard')
+@section('index')
         
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card ">
-                    <div class="card-header py-3 ">
                         <div class="text-center">
                             <h2>INPUT DATA</h2>
                             @if ($errors->any())
@@ -39,6 +34,14 @@
                             <input type="number" name="nohp_industri" id="" class="form-control" placeholder="Silahkan Diisi">
                         </div>
                         <div class="col-mb-2">
+                            <label for="">Token Masuk</label>
+                            <input type="text" name="token_masuk" id="" class="form-control" placeholder="Silahkan Diisi">
+                        </div>
+                        <div class="col-mb-2">
+                            <label for="">Token Keluar</label>
+                            <input type="text" name="token_keluar" id="" class="form-control" placeholder="Silahkan Diisi">
+                        </div>
+                        <div class="col-mb-2">
                             <label for="">Username</label>
                             <select name="id_user" id="" class="form-control">
                                 @foreach ($user as $item )
@@ -51,8 +54,6 @@
                         </div>
                     </form>
                     </div>
-                </div>
-            </div>
-        </div>
+             
     </div>
 @endsection

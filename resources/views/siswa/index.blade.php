@@ -1,30 +1,28 @@
 
-@extends('template.navbar')
-@section('content')
-        
+@extends('template.dasboard')
+@section('index')
+
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         @if (session('pesan'))
                 <div class="alert alert-success">
                     {{session('pesan')}}
-                </div>       
-        @endif
-        <!-- Container Fluid-->
-        <div class="container-fluid" id="container-wrapper">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> </h1>
-          </div>
-
-          <!-- Row -->
-          <div class="row">
-            <!-- Datatables -->
-            <div class="col-lg-12">
-                <div class="card mb-4">
-                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                </div>
+          @endif 
+           <div class="container-fluid">
+            <div class="row">
+              <h4 class="card-title">Data Siswa</h4>
+              <div class="col-12">      
                     <h6 class="m-0 font-weight-bold text-primary"><a href="siswa/create"><button class="btn btn-primary">Tambah+</button></a></h6>
                   </div>
-                  <div class="table-responsive p-3">
-                    <table class="table align-items-center table-flush" id="dataTable">
+                  {{-- <h6 class="card-subtitle">DataTables has most features enabled by default, so all you
+                      need to do to use it with your own tables is to call the construction
+                      function:<code> $().DataTable();</code>. You can refer full documentation from here
+                      <a href="https://datatables.net/">Datatables</a></h6> --}}
+                  <div class="table-responsive py-2">
+                    <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                      <thead>
+
                         <tr>
                             <th>No</th>
                             <th>Nisn</th>
@@ -36,7 +34,7 @@
                             <th>Kelas</th>
                             <th>Aksi</th>
                         </tr>
-                    </thead>
+                      </thead>
                     <tbody>
                         @foreach ($siswa as $key => $item )
                         <tr>
@@ -48,7 +46,7 @@
                             <td>{{$item->user->username}}<td>
                             <td>{{$item->kelas->kelas}}</td>
                             <td>
-                                    <a href="/siswa/delete/{{$item->nisn}}"><button class="btn btn-danger">Delete</button></a>
+                                    <a href="/siswa/delete/{{$item->nisn}}"><button class="btn btn-danger">Hapus</button></a>
                                 <a href="/siswa/edit/{{$item->nisn}}"><button class="btn btn-info">Edit</button></a>
                             </td>
                         </tr>
@@ -58,33 +56,4 @@
                 </div>
               </div>
             </div>
-          <!--Row-->
-
-        </div>
-        <!---Container Fluid-->
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Scroll to top -->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <script src="{{asset('template/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('template/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('template/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-  <script src="{{asset('template/js/ruang-admin.min.js')}}"></script>
-  <!-- Page level plugins -->
-  <script src="{{asset('template/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-  <script src="{{asset('template/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-  <!-- Page level custom scripts -->
-  <script>
-    $(document).ready(function () {
-      $('#dataTable').DataTable(); // ID From dataTable 
-      $('#dataTableHover').DataTable(); // ID From dataTable with Hover
-    });
-  </script>
-@endsection
+  @endsection

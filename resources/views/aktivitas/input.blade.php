@@ -1,10 +1,6 @@
-@extends('template.navbar')
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card ">
-                <div class="card-header py-3 ">
+@extends('template.dasboard')
+@section('index')
+
                     <div class="text-center">
                         <h2>INPUT DATA KEHADIRAN</h2>
                         @if ($errors->any())
@@ -46,9 +42,7 @@
                         <button type="submit" class="btn btn-primary">SIMPAN</button>
                     </div>
                 </form>
-                </div>
-            </div>
-        </div>
+                
     </div>
 </div>
 @endsection

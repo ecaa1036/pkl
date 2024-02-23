@@ -19,4 +19,8 @@ class Kehadiran extends Model
     public function aktivitas(){
         return $this->hasMany(Aktivitas::class, 'id_kehadiran');
     }
+
+    public function industri(){
+        return $this->hasOne(Industri::class, 'id_industri');
+    }
 }

@@ -56,9 +56,9 @@ class SiswaController extends Controller
         $siswa = Siswa::where('nisn', $request->nisn)->delete();
 
         if($siswa){
-            Session::flash('pesan', 'Data Berhasil Disimpan');
+            Session::flash('pesan', 'Data Berhasil DiHapus');
         }else{
-            Session::flash('pesan', 'Data Gagal Disimpan');
+            Session::flash('pesan', 'Data Gagal DiHapus');
         }
 
         return redirect('siswa');

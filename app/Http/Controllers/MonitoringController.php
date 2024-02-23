@@ -6,6 +6,8 @@ use App\Models\Guru;
 use App\Models\Industri;
 use App\Models\Monitoring;
 use App\Models\Siswa;
+use App\Models\User;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -25,24 +27,55 @@ class MonitoringController extends Controller
         return view('monitoring.input',$data);
     }
 
+    public function show(){
+        if(Auth::user()->level == 'admin'){
+            $data['guru'] = Guru::all();
+            $data['kelas'] = Kelas::all();
+            $data['siswa'] = Siswa::with('kelas')->get();
+            $data['industri'] = Industri::all();
+            // $data['monitoring'] = Monitoring::with('guru')->with('industri')->with('siswa')->groupBy('id_industri')->get();
+            $data['monitoring'] = Monitoring::with('guru')->with('industri')->with('siswa')
+            ->selectRaw('id_industri, MAX(id_monitoring) as id_monitoring, id_guru, nisn, id_industri')
+            ->groupBy('id_industri', 'id_guru', 'nisn', 'id_industri')
+            ->get();
+            // $data['monitoring'] = Monitoring::with('guru')->with('industri')->with('siswa')
+            //             ->selectRaw('id_industri, MAX(id_monitoring) as id_monitoring')
+            //             ->groupBy('id_industri')
+            //             ->get();
+        }else{
+            $data['user'] = User::where('id_user', Auth::user()->id)->get();
+            $userId = $data['user'][0]->id;
+            $data['guru'] = Guru::where('id_user', $userId)->first();
+            $guruId = $data['guru']->id;
+            $data['kelas'] = Kelas::all();
+            $data['siswa'] = Siswa::with('kelas')->get();
+            $data['industri'] = Industri::all();
+            // $data['monitoring'] = Monitoring::where('id_guru',$guruId)->with('guru')->with('industri')->with('siswa')->groupBy('id_industri')->get();
+            $data['monitoring'] = Monitoring::with('guru')->with('industri')->with('siswa')
+            ->selectRaw('id_industri, MAX(id_monitoring) as id_monitoring')
+            ->groupBy('id_industri')
+            ->get();     
+          }
+
+        return view('monitoring.index',$data);
+    }
+       
+
     public function add(Request $request){
         if(Auth::check()){
 
-            // $guru_id = Auth::id();
-            // $siswa_id = Auth::id();
-            // $industri_id = Auth::id();
+            foreach ($request->nisn as $key => $value) {
+                // Validate each set of data individually
 
-            $validateData = $request->validate([
-                'id_guru' => 'required',
-                'nisn' => 'required',
-                'id_industri' => 'required',
-            ]);
+                $monitoring = Monitoring::create([
+                    'id_guru' => $request->id_guru,
+                    'nisn' => $value,
+                    'id_industri' => $request->id_industri,
+                ]);
+            }
+    
 
-            // $validateData['id_guru'] = $guru_id;
-            // $validateData['nisn'] = $siswa_id;
-            // $validateData['id_industri'] = $industri_id;
-
-            $monitoring = Monitoring::create($validateData);
+            // $monitoring = Monitoring::create($validateData);
 
             if($monitoring){
                 Session::flash('pesan', 'Data Berhasil Disimpan');

@@ -37,4 +37,8 @@ class Siswa extends Model
     public function kehadiran(){
         return $this->hasMany(Kehadiran::class, 'nisn');
     }
+
+    public function keterangan(){
+        return $this->hasOne(Keterangan::class, 'nisn');
+    }
 }

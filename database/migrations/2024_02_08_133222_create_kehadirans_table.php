@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('kehadirans', function (Blueprint $table) {
             $table->increments('id_kehadiran');
-            $table->date('waktu_masuk');
-            $table->date('waktu_pulang');
-            $table->string('qode');
-            // $table->text('foto');
+            $table->date('tgl_kehadiran');
+            $table->time('waktu_masuk');
+            $table->time('waktu_pulang')->nullable()->change();;
+            $table->string('token_masuk');
+            $table->string('token_keluar')->nullable()->change();;
             $table->string('nisn');
+            // $table->unsignedInteger('id_industri');
             $table->foreign('nisn')->references('nisn')->on('siswas')->cascadeOnDelete()->cascadeOnUpdate();
+            // $table->foreign('id_industri')->references('id_industri')->on('industris')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

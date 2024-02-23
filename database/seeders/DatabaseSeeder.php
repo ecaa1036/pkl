@@ -75,6 +75,8 @@ class DatabaseSeeder extends Seeder
             'pemilik_industri' => 'Elsa',
             'alamat_industri' => 'Tasikmalaya',
             'nohp_industri' => '087654328123',
+            'token_masuk' => '12ert',
+            'token_keluar' => '4gt4',
             'id_user' => 4
         ]);
 
